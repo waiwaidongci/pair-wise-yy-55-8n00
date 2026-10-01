@@ -1,5 +1,5 @@
-import { Layout, Menu, Button, Tag, Space } from 'antd'
-import { AudioOutlined, FileTextOutlined, HistoryOutlined, SaveOutlined } from '@ant-design/icons'
+import { Layout, Menu, Button, Tag, Space, Badge } from 'antd'
+import { AudioOutlined, FileTextOutlined, HistoryOutlined, SaveOutlined, SwapOutlined } from '@ant-design/icons'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './store'
@@ -8,15 +8,18 @@ import Overview from './pages/Overview'
 import ScoreEditor from './pages/ScoreEditor'
 import Parts from './pages/Parts'
 import Versions from './pages/Versions'
+import Handoff from './pages/Handoff'
 
 export default function App() {
   const location = useLocation()
   const dispatch = useDispatch<AppDispatch>()
-  const dirty = useSelector((state: RootState) => state.score.dirty)
+  const { dirty, review, inbox } = useSelector((state: RootState) => state.score)
+  const pendingReview = review.filter((item) => item.status === 'pending').length
   const items = [
     { key: '/', icon: <AudioOutlined />, label: <Link to="/">作品总览</Link> },
     { key: '/score', icon: <FileTextOutlined />, label: <Link to="/score">总谱编辑</Link> },
     { key: '/parts', icon: <FileTextOutlined />, label: <Link to="/parts">分谱出版</Link> },
+    { key: '/handoff', icon: <SwapOutlined />, label: <Badge count={inbox.length + pendingReview} size="small" offset={[14, -2]}><Link to="/handoff">勘误交接</Link></Badge> },
     { key: '/versions', icon: <HistoryOutlined />, label: <Link to="/versions">版本与评论</Link> },
   ]
   return (
@@ -28,7 +31,7 @@ export default function App() {
       </Layout.Sider>
       <Layout>
         <Layout.Header className="top-header"><div><b>沈青 · 室内交响作品</b><Tag style={{ marginLeft: 10 }} color={dirty ? 'orange' : 'green'}>{dirty ? '未保存修改' : '版本 v12 已保存'}</Tag></div><Space><Button>打印预览</Button><Button type="primary" icon={<SaveOutlined />} onClick={() => dispatch(saveVersion())}>形成版本</Button></Space></Layout.Header>
-        <Layout.Content><Routes><Route path="/" element={<Overview />} /><Route path="/score" element={<ScoreEditor />} /><Route path="/parts" element={<Parts />} /><Route path="/versions" element={<Versions />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></Layout.Content>
+        <Layout.Content><Routes><Route path="/" element={<Overview />} /><Route path="/score" element={<ScoreEditor />} /><Route path="/parts" element={<Parts />} /><Route path="/handoff" element={<Handoff />} /><Route path="/versions" element={<Versions />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></Layout.Content>
       </Layout>
     </Layout>
   )

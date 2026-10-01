@@ -18,9 +18,10 @@ export default function ScoreEditor() {
     if (!element) return
     element.innerHTML = ''
     const renderer = new Renderer(element, Renderer.Backends.SVG)
-    renderer.resize(1060, 230)
+    const measureCount = Math.max(1, Math.ceil(track.notes.length / 4))
+    renderer.resize(340 * measureCount + 20, 230)
     const context = renderer.getContext()
-    const measures = [track.notes.slice(0, 4), track.notes.slice(4, 8), track.notes.slice(8, 12)]
+    const measures = Array.from({ length: measureCount }, (_, index) => track.notes.slice(index * 4, index * 4 + 4))
     measures.forEach((measure, index) => {
       const stave = new Stave(index * 340, 22, 320).addClef(track.clef)
       if (index === 0) stave.addTimeSignature('4/4')

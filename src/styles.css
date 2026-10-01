@@ -22,3 +22,21 @@ body { margin: 0; min-width: 320px; }
 .diff-row { display:grid; grid-template-columns:90px 1fr auto; gap:12px; align-items:center; padding:11px 0; border-bottom:1px solid #edf0f5; }
 @media(max-width:1050px){.score-grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}}@media(max-width:620px){.page{padding:12px}.page-head{flex-direction:column}.metrics{grid-template-columns:1fr}.part-page{padding:16px;overflow:auto}.part-measure{min-width:620px}}
 @media print{.no-print{display:none!important}.ant-layout-sider,.ant-layout-header{display:none!important}.page{padding:0;max-width:none}.part-page{border:0;box-shadow:none}}
+.inbox-card { border: 1px solid #e1e7ef; border-radius: 8px; }
+.inbox-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.handoff-progress { border: 1px solid #e1e7ef; border-radius: 8px; padding: 10px 12px; background: #fbfdff; }
+.handoff-progress-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.op-strip { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.review-row { display: flex; justify-content: space-between; gap: 12px; border: 1px solid #f0d9b5; background: #fffdf7; border-radius: 8px; padding: 10px 12px; }
+.review-row.decided { opacity: .72; border-color: #d7dee8; background: #fafbfc; }
+.review-main { min-width: 0; }
+.review-values { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: #475569; }
+.review-values .studio { color: #2563eb; }
+.review-values .offline { color: #d97706; }
+.baseline-grid { display: grid; gap: 10px; }
+.baseline-item { border: 1px solid #e1e7ef; border-radius: 8px; padding: 8px 10px; }
+.baseline-item small { display: block; color: #94a3b8; margin: 2px 0 6px; }
+.invalidate-row { display: grid; grid-template-columns: 64px 1.4fr 1fr; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px dashed #eef1f6; font-size: 12.5px; }
+.invalidate-row .stale-reason { color: #b45309; }
+@media(max-width:900px){.invalidate-row{grid-template-columns:1fr}.review-row{flex-direction:column}}
+.baseline-measures { display: flex; flex-wrap: wrap; gap: 4px; }
